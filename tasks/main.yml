@@ -10,6 +10,16 @@
 - name: Ensure we pick up correct version if override tag is specified
   ansible.builtin.set_fact:
     pihole_version: "{% if (override_tag | length) > 0 %}{{ override_tag }}{% else %}latest{% endif %}"
+    etc_pihole: "/home/{{ ansible_user }}/etc-pihole/:/etc/pihole/"
+    etc_dnsmasq: "/home/{{ ansible_user }}/etc-dnsmasq.d/:/etc/dnsmasq.d/"
+
+- name: Ensure the volume dirs exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ etc_pihole }}"
+    - "{{ etc_dnsmasq }}"
 
 - name: Start container
   containers.podman.podman_container:
@@ -34,8 +44,8 @@
       FTLCONF_dns_listeningMode: 'all'
     hostname: "{{ pi_hostname }}"
     volumes:
-      - "/home/{{ ansible_user }}/etc-pihole/:/etc/pihole/"
-      - "/home/{{ ansible_user }}/etc-dnsmasq.d/:/etc/dnsmasq.d/"
+      - "{{ etc_pihole }}"
+      - "{{ etc_dnsmasq }}"
     restart_policy: unless-stopped
     capabilities:
       - NET_ADMIN
