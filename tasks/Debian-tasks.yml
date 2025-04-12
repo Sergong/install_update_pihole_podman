@@ -30,5 +30,5 @@
 - name: Ensure docker.io is a recognized registry for podman
   ansible.builtin.lineinfile:
     path: /etc/containers/registries.conf
-    line: "unqualified-search-registries=["docker.io"]"
+    line: 'unqualified-search-registries=["docker.io"]'
   become: true
