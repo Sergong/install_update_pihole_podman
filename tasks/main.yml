@@ -34,8 +34,8 @@
       FTLCONF_dns_listeningMode: 'all'
     hostname: "{{ pi_hostname }}"
     volumes:
-      - '~/etc-pihole/:/etc/pihole/'
-      - '~/etc-dnsmasq.d/:/etc/dnsmasq.d/'
+      - "/home/{{ ansible_user }}/etc-pihole/:/etc/pihole/"
+      - "/home/{{ ansible_user }}/etc-dnsmasq.d/:/etc/dnsmasq.d/"
     restart_policy: unless-stopped
     capabilities:
       - NET_ADMIN
