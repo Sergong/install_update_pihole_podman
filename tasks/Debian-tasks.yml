@@ -3,12 +3,14 @@
   ansible.builtin.package:
     name: python3-pip
     state: present
+  become: true
 
 - name: Ensure DNS Stub is disabled for systemd-resolved on Ubuntu
   ansible.builtin.lineinfile:
     path: /etc/systemd/resolved.conf
     regexp: "^#DNSStubListener=yes"
     line: "DNSStubListener=no"
+  become: true
 
 - name: Ensure /etc/resolved.conf points to the correct file
   ansible.builtin.file:
@@ -17,3 +19,4 @@
     state: link
     force: true
   notify: Restart systemd-resolved
+  become: true
