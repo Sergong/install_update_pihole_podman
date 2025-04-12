@@ -52,3 +52,4 @@
       - SYS_NICE
     privileged: true
     #container_default_behavior: compatibility
+  become: true
