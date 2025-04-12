@@ -1,0 +1,5 @@
+---
+- name: Ensure pip3 is installed on Manjaro
+  ansible.builtin.package:
+    name: python-pip
+    state: present
