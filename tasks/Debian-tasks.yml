@@ -26,3 +26,9 @@
       notify: Restart systemd-resolved
       become: true
   when: ansible_facts['services']['systemd-resolved.service']['status'] | default('not-found') != 'not-found'
+
+- name: Ensure docker.io is a recognized registry for podman
+  ansible.builtin.lineinfile:
+    path: /etc/containers/registries.conf
+    line: "unqualified-search-registries=["docker.io"]"
+  become: true
