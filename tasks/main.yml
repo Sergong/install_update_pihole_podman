@@ -36,7 +36,6 @@
     volumes:
       - '~/etc-pihole/:/etc/pihole/'
       - '~/etc-dnsmasq.d/:/etc/dnsmasq.d/'
-    restart_policy: unless-stopped
     capabilities:
       - NET_ADMIN
       - SYS_NICE
